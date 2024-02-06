@@ -5,12 +5,22 @@ import { Relate } from "@/app/interfaces/relate";
 import { MessageSquareQuote } from "lucide-react";
 import React, { FC } from "react";
 
-export const Relates: FC<{ relates: Relate[] | null }> = ({ relates }) => {
+export const Relates: FC<{
+  relates: Relate[] | null;
+  onContinueSearch?: (value: string) => void;
+}> = ({ relates, onContinueSearch }) => {
+  const handleContinueSearch = (value: string) => {
+    if (onContinueSearch) {
+      onContinueSearch(value);
+    }
+  };
+
   return (
     <Wrapper
+      header={""}
       title={
         <>
-          <MessageSquareQuote></MessageSquareQuote> Related
+          <MessageSquareQuote></MessageSquareQuote> 相关问题
         </>
       }
       content={
@@ -18,7 +28,11 @@ export const Relates: FC<{ relates: Relate[] | null }> = ({ relates }) => {
           {relates !== null ? (
             relates.length > 0 ? (
               relates.map(({ question }) => (
-                <PresetQuery key={question} query={question}></PresetQuery>
+                <PresetQuery
+                  onContinueSearch={handleContinueSearch}
+                  key={question}
+                  query={question}
+                ></PresetQuery>
               ))
             ) : (
               <div className="text-sm">No related questions.</div>

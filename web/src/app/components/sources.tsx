@@ -9,7 +9,11 @@ const SourceItem: FC<{ source: Source; index: number }> = ({
   index,
 }) => {
   const { id, name, url } = source;
-  const domain = new URL(url).hostname;
+  let domain = "";
+  if (url) {
+    const urlObject = new URL(url);
+    domain = urlObject.hostname;
+  }
   return (
     <div
       className="relative text-xs py-3 px-3 bg-zinc-100 hover:bg-zinc-200 rounded-lg flex flex-col gap-2"
@@ -42,9 +46,10 @@ export const Sources: FC<{ sources: Source[] }> = ({ sources }) => {
     <Wrapper
       title={
         <>
-          <BookText></BookText> Sources
+          <BookText></BookText> 来源
         </>
       }
+      header={""}
       content={
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {sources.length > 0 ? (

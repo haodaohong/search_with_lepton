@@ -7,8 +7,7 @@ const RELATED_SPLIT = "__RELATED_QUESTIONS__";
 
 export const parseStreaming = async (
   controller: AbortController,
-  query: string,
-  search_uuid: string,
+  request: ChatRequest,
   onSources: (value: Source[]) => void,
   onMarkdown: (value: string) => void,
   onRelates: (value: Relate[]) => void,
@@ -18,22 +17,22 @@ export const parseStreaming = async (
   let uint8Array = new Uint8Array();
   let chunks = "";
   let sourcesEmitted = false;
+  //return;
   const response = await fetch(`/query`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "*./*",
+      Authorization: "Bearer j5hxs5lv362ej2agw707bt9n7aereqjh",
     },
     signal: controller.signal,
-    body: JSON.stringify({
-      query,
-      search_uuid,
-    }),
+    body: JSON.stringify(request),
   });
   if (response.status !== 200) {
     onError?.(response.status);
     return;
   }
+
   const markdownParse = (text: string) => {
     onMarkdown(
       text
@@ -58,6 +57,8 @@ export const parseStreaming = async (
           }
         }
         sourcesEmitted = true;
+        console.log("sources response", sources);
+        console.log("rest response", rest);
         if (rest.includes(RELATED_SPLIT)) {
           const [md] = rest.split(RELATED_SPLIT);
           markdownParse(md);
@@ -69,7 +70,10 @@ export const parseStreaming = async (
     () => {
       const [_, relates] = chunks.split(RELATED_SPLIT);
       try {
-        onRelates(JSON.parse(relates));
+        console.log("formatData relates", relates);
+        const formatData = relates.replace(/```json|```/g, "").trim();
+        console.log("formatData data", formatData);
+        onRelates(JSON.parse(formatData));
       } catch (e) {
         onRelates([]);
       }

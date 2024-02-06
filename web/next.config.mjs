@@ -16,7 +16,11 @@ export default (phase, { defaultConfig }) => {
         return [
           {
             source: "/query",
-            destination: "http://localhost:8080/query" // Proxy to Backend
+            destination: "https://ai.api.laiwen.cn/api/chat/Aiwen/Query" // Proxy to Backend
+          },
+          {
+            source: "/history",
+            destination: "https://ai.api.laiwen.cn/api/chat/Aiwen/QueryHistory" // Proxy to Backend
           }
         ];
       }

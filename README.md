@@ -4,7 +4,7 @@ Build your own conversational search engine using less than 500 lines of code.
 <br/>
 <a href="https://search.lepton.run/" target="_blank"> Live Demo </a>
 <br/>
-<img width="70%" src="https://github.com/leptonai/search_with_lepton/assets/1506722/845d7057-02cd-404e-bbc7-60f4bae89680">
+<img width="645" src="https://github.com/leptonai/search_with_lepton/assets/1506722/845d7057-02cd-404e-bbc7-60f4bae89680" height="500">
 </div>
 
 
@@ -15,13 +15,9 @@ Build your own conversational search engine using less than 500 lines of code.
 - Shareable, cached search results
 
 ## Setup Search Engine API
-There are two default supported search engines: Bing and Google.
- 
-### Bing Search
-To use the Bing Web Search API, please visit [this link](https://www.microsoft.com/en-us/bing/apis/bing-web-search-api) to obtain your Bing subscription key.
 
-### Google Search
-You have three options for Google Search: you can use the [SearchApi Google Search API](https://www.searchapi.io/) from SearchApi, [Serper Google Search API](https://www.serper.dev) from Serper, or opt for the [Programmable Search Engine](https://developers.google.com/custom-search) provided by Google.
+> [!NOTE]
+> Visit [here](https://www.microsoft.com/en-us/bing/apis/bing-web-search-api) to get your Bing subscription key.
 
 ## Setup LLM and KV
 
@@ -47,25 +43,6 @@ cd web && npm install && npm run build
 3. Run server
 ```shell
 BACKEND=BING python search_with_lepton.py
-```
-
-For Google Search using SearchApi:
-```shell
-export SEARCHAPI_API_KEY=YOUR_SEARCHAPI_API_KEY
-BACKEND=SEARCHAPI python search_with_lepton.py
-```
-
-For Google Search using Serper:
-```shell
-export SERPER_SEARCH_API_KEY=YOUR_SERPER_API_KEY
-BACKEND=SERPER python search_with_lepton.py
-```
-
-For Google Search using Programmable Search Engine:
-```shell
-export GOOGLE_SEARCH_API_KEY=YOUR_GOOGLE_SEARCH_API_KEY
-export GOOGLE_SEARCH_CX=YOUR_GOOGLE_SEARCH_ENGINE_ID
-BACKEND=GOOGLE python search_with_lepton.py
 ```
 
 
